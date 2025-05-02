@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/ezekj/Downloads/ecommerce/mlruns/0/d80af4dd594f41d883db25af1d3f2749/artifacts
+end_time: 1746063876459
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: d80af4dd594f41d883db25af1d3f2749
+run_name: painted-snipe-980
+run_uuid: d80af4dd594f41d883db25af1d3f2749
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746063871905
+status: 4
+tags: []
+user_id: ezekj

@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1746068255566
+current_stage: None
+description: ''
+last_updated_timestamp: 1746068255566
+name: 2nd_bestmodel
+run_id: c848434a6e53478ea0d11980e37ce6bf
+run_link: ''
+source: file:///C:/Users/ezekj/Downloads/ecommerce/mlruns/0/c848434a6e53478ea0d11980e37ce6bf/artifacts/model
+status: READY
+status_message: null
+storage_location: file:///C:/Users/ezekj/Downloads/ecommerce/mlruns/0/c848434a6e53478ea0d11980e37ce6bf/artifacts/model
+user_id: null
+version: 1

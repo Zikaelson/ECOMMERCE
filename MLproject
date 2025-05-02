@@ -1,0 +1,6 @@
+name: ecommerce-mlflow
+
+entry_points:
+  main:
+    parameters: {}
+    command: "python src/train.py"

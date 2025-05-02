@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/ezekj/Downloads/ecommerce/mlruns/0/a49fc1467169448b907075eeada9f63b/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: a49fc1467169448b907075eeada9f63b
+run_name: glamorous-mule-74
+run_uuid: a49fc1467169448b907075eeada9f63b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746063747519
+status: 1
+tags: []
+user_id: ezekj

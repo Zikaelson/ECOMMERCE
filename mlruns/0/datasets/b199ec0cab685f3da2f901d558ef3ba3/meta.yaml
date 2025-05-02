@@ -1,0 +1,10 @@
+digest: a22a9a46
+name: dataset
+profile: '{"num_rows": 150, "num_elements": 600}'
+schema: '{"mlflow_colspec": [{"type": "double", "name": "Avg. Session Length", "required":
+  true}, {"type": "double", "name": "Time on App", "required": true}, {"type": "double",
+  "name": "Time on Website", "required": true}, {"type": "double", "name": "Length
+  of Membership", "required": true}]}'
+source: '{"tags": {"mlflow.user": "ezekj", "mlflow.source.name": "src/train.py", "mlflow.source.type":
+  "LOCAL"}}'
+source_type: code

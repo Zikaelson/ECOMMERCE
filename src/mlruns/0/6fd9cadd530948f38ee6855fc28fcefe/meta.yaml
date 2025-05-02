@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/ezekj/Downloads/ecommerce/src/mlruns/0/6fd9cadd530948f38ee6855fc28fcefe/artifacts
+end_time: 1746062651436
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 6fd9cadd530948f38ee6855fc28fcefe
+run_name: Random Forest
+run_uuid: 6fd9cadd530948f38ee6855fc28fcefe
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746062638761
+status: 3
+tags: []
+user_id: ezekj
