@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1746156525820
+current_stage: Production
+description: null
+last_updated_timestamp: 1746156525917
+name: ecommerce_best_model
+run_id: 3153123d65a34fbfb6427df214cae651
+run_link: null
+source: file:///C:/Users/ezekj/Downloads/ecommerce/mlruns/0/3153123d65a34fbfb6427df214cae651/artifacts/model
+status: READY
+status_message: null
+storage_location: file:///C:/Users/ezekj/Downloads/ecommerce/mlruns/0/3153123d65a34fbfb6427df214cae651/artifacts/model
+user_id: null
+version: 6

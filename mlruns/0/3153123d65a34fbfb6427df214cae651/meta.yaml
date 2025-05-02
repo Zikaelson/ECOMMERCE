@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/ezekj/Downloads/ecommerce/mlruns/0/3153123d65a34fbfb6427df214cae651/artifacts
+end_time: 1746156525960
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 3153123d65a34fbfb6427df214cae651
+run_name: Linear Regression
+run_uuid: 3153123d65a34fbfb6427df214cae651
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746156518407
+status: 3
+tags: []
+user_id: ezekj
