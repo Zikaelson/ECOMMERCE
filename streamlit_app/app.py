@@ -7,6 +7,9 @@ import mlflow
 # Set page config
 st.set_page_config(page_title="💸 Predict Customer Spend", layout="centered")
 
+# Set tracking URI to the local mlruns path inside Docker
+mlflow.set_tracking_uri("file:/app/mlruns")
+
 # Load MLflow production model
 model = mlflow.sklearn.load_model("models:/ecommerce_best_model/Production")
 
