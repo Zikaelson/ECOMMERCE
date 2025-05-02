@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/ezekj/Downloads/ecommerce/mlruns/0/6f03722975894c688f07aa5a9f7a7b59/artifacts
+end_time: 1746157281587
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 6f03722975894c688f07aa5a9f7a7b59
+run_name: Gradient Boosting
+run_uuid: 6f03722975894c688f07aa5a9f7a7b59
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1746157277798
+status: 3
+tags: []
+user_id: ezekj

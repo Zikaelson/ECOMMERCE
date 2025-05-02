@@ -1,5 +1,6 @@
 import os
 import sys
+import shutil
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -14,20 +15,24 @@ from mlflow.tracking import MlflowClient
 sys.path.append(os.path.abspath("../src"))
 from utils import load_data
 
+# ✅ Set tracking directory for local MLflow use
+mlflow.set_tracking_uri("file:./mlruns")
+mlflow.set_experiment("Default")  # This maps to experiment ID 0
+
+# ✅ Clean any old registry to avoid Windows-path issues
+registry_path = "./mlruns/models/ecommerce_best_model"
+if os.path.exists(registry_path):
+    shutil.rmtree(registry_path)
+
 # ✅ Load dataset
 df = load_data("data/customerdata.csv")
 
-# ✅ Select features and target
+# ✅ Feature and target selection
 X = df[['Avg. Session Length', 'Time on App', 'Time on Website', 'Length of Membership']]
 y = df['Yearly Amount Spent']
 
 # ✅ Train-test split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101)
-
-# ✅ Set local tracking path for MLflow to store artifacts locally
-mlflow.set_tracking_uri("file:./mlruns")
-mlflow.set_experiment("Default")
-mlflow.sklearn.autolog()
 
 # ---------------------- Linear Regression ---------------------- #
 with mlflow.start_run(run_name="Linear Regression") as run:
@@ -35,26 +40,23 @@ with mlflow.start_run(run_name="Linear Regression") as run:
     model.fit(X_train, y_train)
     preds = model.predict(X_test)
 
-    # Log extra metadata (autolog already handles this too)
     mlflow.log_param("model_type", "LinearRegression")
     mlflow.log_metric("r2", r2_score(y_test, preds))
     mlflow.log_metric("rmse", np.sqrt(mean_squared_error(y_test, preds)))
 
     mlflow.sklearn.log_model(model, "model")
-
-    # Register model
     model_uri = f"runs:/{run.info.run_id}/model"
     mlflow.register_model(model_uri, "ecommerce_best_model")
 
-    # Promote to Production
+    # Promote latest version to Production
     client = MlflowClient()
-    latest_version = client.get_latest_versions("ecommerce_best_model", stages=["None"])[0].version
+    version = client.get_latest_versions("ecommerce_best_model", stages=["None"])[0].version
     client.transition_model_version_stage(
         name="ecommerce_best_model",
-        version=latest_version,
+        version=version,
         stage="Production"
     )
-    print(f"✅ Model version {latest_version} promoted to Production.")
+    print(f"✅ Model version {version} promoted to Production.")
 
 # ---------------------- Random Forest ---------------------- #
 with mlflow.start_run(run_name="Random Forest"):
@@ -63,10 +65,8 @@ with mlflow.start_run(run_name="Random Forest"):
     preds = model.predict(X_test)
 
     mlflow.log_param("model_type", "RandomForest")
-    mlflow.log_param("n_estimators", 100)
     mlflow.log_metric("r2", r2_score(y_test, preds))
     mlflow.log_metric("rmse", np.sqrt(mean_squared_error(y_test, preds)))
-
     mlflow.sklearn.log_model(model, "model")
 
 # ---------------------- Gradient Boosting ---------------------- #
@@ -78,5 +78,4 @@ with mlflow.start_run(run_name="Gradient Boosting"):
     mlflow.log_param("model_type", "GradientBoosting")
     mlflow.log_metric("r2", r2_score(y_test, preds))
     mlflow.log_metric("rmse", np.sqrt(mean_squared_error(y_test, preds)))
-
     mlflow.sklearn.log_model(model, "model")
