@@ -9,12 +9,14 @@ COPY requirements.txt .
 
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Copy app code and model registry
+# Copy app code only (no mlruns/)
 COPY streamlit_app/ ./streamlit_app/
-COPY mlruns/ ./mlruns/
 
-# Set MLflow tracking path (for local registry use)
-ENV MLFLOW_TRACKING_URI=file:/app/mlruns
+# Copy .env file if needed (or inject via GitHub secrets)
+# COPY .env .env
+
+# Use remote MLflow server from .env (or from secrets)
+ENV MLFLOW_TRACKING_URI=${MLFLOW_TRACKING_URI}
 
 # Expose Streamlit default port
 EXPOSE 8501
