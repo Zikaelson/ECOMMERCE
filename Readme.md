@@ -24,3 +24,4 @@ Step	Description
 💻 SSH commands	Ran growpart and xfs_growfs to resize the partition and file system
 📦 Reclaimed space	Your EC2 instance now has room for Docker builds and ML deployment
 🔁 Ready to rerun	You can now confidently trigger your GitHub Actions CI/CD pipeline again
+Lets go
