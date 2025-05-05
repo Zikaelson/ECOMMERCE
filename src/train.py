@@ -59,7 +59,7 @@ with mlflow.start_run(run_name="Linear Regression") as run:
     mlflow.log_metric("r2", r2_score(y_test, preds))
     mlflow.log_metric("rmse", np.sqrt(mean_squared_error(y_test, preds)))
 
-    mlflow.sklearn.log_model(model, "model", artifact_path="models/linear_regression")
+    mlflow.sklearn.log_model(model, "model")
     model_uri = f"runs:/{run.info.run_id}/model"
     mlflow.register_model(model_uri, "ecommerce_best_model")
 
@@ -85,7 +85,7 @@ with mlflow.start_run(run_name="Random Forest"):
     mlflow.log_param("model_type", "RandomForest")
     mlflow.log_metric("r2", r2_score(y_test, preds))
     mlflow.log_metric("rmse", np.sqrt(mean_squared_error(y_test, preds)))
-    mlflow.sklearn.log_model(model, "model", artifact_path="models/Random_Forest")
+    mlflow.sklearn.log_model(model, "model")
 
 # ---------------------- Gradient Boosting ---------------------- #
 with mlflow.start_run(run_name="Gradient Boosting"):
@@ -96,5 +96,5 @@ with mlflow.start_run(run_name="Gradient Boosting"):
     mlflow.log_param("model_type", "GradientBoosting")
     mlflow.log_metric("r2", r2_score(y_test, preds))
     mlflow.log_metric("rmse", np.sqrt(mean_squared_error(y_test, preds)))
-    mlflow.sklearn.log_model(model, "model", artifact_path="models/Gradient_Boosting")
+    mlflow.sklearn.log_model(model, "model")
 
