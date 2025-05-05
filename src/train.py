@@ -71,7 +71,7 @@ with mlflow.start_run(run_name="Linear Regression") as run:
         version=version,
         stage="Production"
     )
-    print(f"✅ Model version {version} promoted to Production.")
+    print(f"Model version {version} promoted to Production.")
 
  
 
