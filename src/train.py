@@ -115,11 +115,12 @@ load_dotenv()
 sys.path.append(os.path.abspath("../src"))
 from utils import load_data
 
-# ✅ Set tracking URI for remote MLflow server
-mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI"))  # This should point to your remote MLflow server URI
-
-# ✅ Create or use the existing experiment
+# ✅ Set MLflow tracking URI to use the remote server (S3 bucket as storage for models/artifacts)
+mlflow.set_tracking_uri('http://3.145.115.164:5000')  # Replace with your MLflow tracking URI
 mlflow.set_experiment("ecommerce-experiment")  # This maps to experiment ID 0
+
+# ✅ Set artifact storage location to your S3 bucket (make sure your bucket is properly configured in AWS)
+mlflow.set_artifact_uri('s3://ecommerce-mlflow-artifacts')  # Pointing to your S3 bucket
 
 # ✅ Clean any old registry to avoid Windows-path issues
 registry_path = "./mlruns/models/ecommerce_best_model"
@@ -146,7 +147,8 @@ with mlflow.start_run(run_name="Linear Regression") as run:
     mlflow.log_metric("r2", r2_score(y_test, preds))
     mlflow.log_metric("rmse", np.sqrt(mean_squared_error(y_test, preds)))
 
-    mlflow.sklearn.log_model(model, "model", input_example=pd.DataFrame(X_train.iloc[0]).T)  # Make sure input_example is correct
+    # Log model with input example for automatic signature inference
+    mlflow.sklearn.log_model(model, "model", input_example=pd.DataFrame(X_train.iloc[0]).T)
     model_uri = f"runs:/{run.info.run_id}/model"
     mlflow.register_model(model_uri, "ecommerce_best_model")
 
@@ -169,6 +171,8 @@ with mlflow.start_run(run_name="Random Forest"):
     mlflow.log_param("model_type", "RandomForest")
     mlflow.log_metric("r2", r2_score(y_test, preds))
     mlflow.log_metric("rmse", np.sqrt(mean_squared_error(y_test, preds)))
+
+    # Log model with input example for automatic signature inference
     mlflow.sklearn.log_model(model, "model", input_example=pd.DataFrame(X_train.iloc[0]).T)
 
 # ---------------------- Gradient Boosting ---------------------- #
@@ -180,4 +184,6 @@ with mlflow.start_run(run_name="Gradient Boosting"):
     mlflow.log_param("model_type", "GradientBoosting")
     mlflow.log_metric("r2", r2_score(y_test, preds))
     mlflow.log_metric("rmse", np.sqrt(mean_squared_error(y_test, preds)))
+
+    # Log model with input example for automatic signature inference
     mlflow.sklearn.log_model(model, "model", input_example=pd.DataFrame(X_train.iloc[0]).T)
