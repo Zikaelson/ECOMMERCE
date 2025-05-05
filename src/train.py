@@ -26,8 +26,9 @@ from utils import load_data
 mlflow.set_tracking_uri('sqlite:///mlruns.db')  # Use local SQLite for model registry
 mlflow.set_experiment("ecommerce-experiment")  # This maps to experiment ID 0
 
-# ✅ Set artifact location (S3) for model artifacts
-mlflow.set_artifact_uri('s3://ecommerce-mlflow-artifacts')  # Artifact location in S3
+# ✅ Use S3 as the artifact storage location
+# The artifact storage location is specified in the MLflow server configuration, 
+# not directly within the script. 
 
 # ✅ Clean any old registry to avoid Windows-path issues
 registry_path = "./mlruns/models/ecommerce_best_model"
@@ -89,3 +90,4 @@ with mlflow.start_run(run_name="Gradient Boosting"):
     mlflow.log_metric("r2", r2_score(y_test, preds))
     mlflow.log_metric("rmse", np.sqrt(mean_squared_error(y_test, preds)))
     mlflow.sklearn.log_model(model, "model", input_example=pd.DataFrame(X_train.iloc[0]).T)
+
