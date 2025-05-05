@@ -22,9 +22,12 @@ load_dotenv()
 sys.path.append(os.path.abspath("../src"))
 from utils import load_data
 
-# ✅ Set tracking URI for S3 artifact storage
-mlflow.set_tracking_uri('s3://ecommerce-mlflow-artifacts')  # Make sure it's S3
+# ✅ Set tracking URI for backend store (use SQLite for model registry)
+mlflow.set_tracking_uri('sqlite:///mlruns.db')  # Use local SQLite for model registry
 mlflow.set_experiment("ecommerce-experiment")  # This maps to experiment ID 0
+
+# ✅ Set artifact location (S3) for model artifacts
+mlflow.set_artifact_uri('s3://ecommerce-mlflow-artifacts')  # Artifact location in S3
 
 # ✅ Clean any old registry to avoid Windows-path issues
 registry_path = "./mlruns/models/ecommerce_best_model"
