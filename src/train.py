@@ -2,13 +2,8 @@ import os
 import sys
 import shutil
 from dotenv import load_dotenv
-
-
 import numpy as np
 import pandas as pd
-
-
-
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
@@ -16,8 +11,6 @@ from sklearn.metrics import mean_squared_error, r2_score
 import matplotlib.pyplot as plt
 import seaborn as sns  
 import warnings
-warnings.filterwarnings("ignore") 
-
 import mlflow
 import mlflow.sklearn
 from mlflow.tracking import MlflowClient
@@ -25,13 +18,12 @@ from mlflow.tracking import MlflowClient
 # ✅ Load environment variables from .env file
 load_dotenv()
 
-
 # 👇 Allow imports from utils.py
 sys.path.append(os.path.abspath("../src"))
 from utils import load_data
 
-# ✅ Set tracking directory for local MLflow use
-mlflow.set_tracking_uri(os.getenv("MLFLOW_TRACKING_URI"))
+# ✅ Set tracking URI for S3 artifact storage
+mlflow.set_tracking_uri('s3://ecommerce-mlflow-artifacts')  # Make sure it's S3
 mlflow.set_experiment("ecommerce-experiment")  # This maps to experiment ID 0
 
 # ✅ Clean any old registry to avoid Windows-path issues
@@ -73,9 +65,6 @@ with mlflow.start_run(run_name="Linear Regression") as run:
     )
     print(f"Model version {version} promoted to Production.")
 
- 
-
-
 # ---------------------- Random Forest ---------------------- #
 with mlflow.start_run(run_name="Random Forest"):
     model = RandomForestRegressor(n_estimators=100, random_state=101)
@@ -87,8 +76,6 @@ with mlflow.start_run(run_name="Random Forest"):
     mlflow.log_metric("rmse", np.sqrt(mean_squared_error(y_test, preds)))
     mlflow.sklearn.log_model(model, "model", input_example=pd.DataFrame(X_train.iloc[0]).T)
 
-
-
 # ---------------------- Gradient Boosting ---------------------- #
 with mlflow.start_run(run_name="Gradient Boosting"):
     model = GradientBoostingRegressor(random_state=101)
@@ -99,6 +86,3 @@ with mlflow.start_run(run_name="Gradient Boosting"):
     mlflow.log_metric("r2", r2_score(y_test, preds))
     mlflow.log_metric("rmse", np.sqrt(mean_squared_error(y_test, preds)))
     mlflow.sklearn.log_model(model, "model", input_example=pd.DataFrame(X_train.iloc[0]).T)
-
-
-
