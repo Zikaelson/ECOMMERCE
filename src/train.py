@@ -185,5 +185,5 @@ with mlflow.start_run(run_name="Gradient Boosting"):
     mlflow.log_metric("r2", r2_score(y_test, preds))
     mlflow.log_metric("rmse", np.sqrt(mean_squared_error(y_test, preds)))
 
-    # Log model with input example for automatic signature inference
+    # Log model with input example for automatic signature 
     mlflow.sklearn.log_model(model, "model", input_example=pd.DataFrame(X_train.iloc[0]).T)
